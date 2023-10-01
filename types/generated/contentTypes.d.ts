@@ -587,7 +587,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -615,6 +614,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'manyToOne',
       'plugin::users-permissions.role'
+    >;
+    pedidos: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::pedido.pedido'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -677,6 +681,183 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiCategoriaCategoria extends Schema.CollectionType {
+  collectionName: 'categorias';
+  info: {
+    singularName: 'categoria';
+    pluralName: 'categorias';
+    displayName: 'categoria';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    titulo: Attribute.String & Attribute.Required & Attribute.Unique;
+    produtos: Attribute.Relation<
+      'api::categoria.categoria',
+      'manyToMany',
+      'api::produto.produto'
+    >;
+    subcategorias: Attribute.Relation<
+      'api::categoria.categoria',
+      'manyToMany',
+      'api::subcategoria.subcategoria'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::categoria.categoria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::categoria.categoria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPedidoPedido extends Schema.CollectionType {
+  collectionName: 'pedidos';
+  info: {
+    singularName: 'pedido';
+    pluralName: 'pedidos';
+    displayName: 'pedido';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    status: Attribute.Enumeration<
+      ['nao_pago', 'pago', 'processando', 'enviado', 'concluido']
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'nao_pago'>;
+    total: Attribute.Decimal & Attribute.Required;
+    produtos: Attribute.Relation<
+      'api::pedido.pedido',
+      'manyToMany',
+      'api::produto.produto'
+    >;
+    user: Attribute.Relation<
+      'api::pedido.pedido',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pedido.pedido',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pedido.pedido',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProdutoProduto extends Schema.CollectionType {
+  collectionName: 'produtos';
+  info: {
+    singularName: 'produto';
+    pluralName: 'produtos';
+    displayName: 'produto';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    titulo: Attribute.String & Attribute.Required & Attribute.Unique;
+    descricao: Attribute.Text & Attribute.Required;
+    imagens: Attribute.Media & Attribute.Required;
+    preco: Attribute.Decimal & Attribute.Required;
+    subcategorias: Attribute.Relation<
+      'api::produto.produto',
+      'manyToMany',
+      'api::subcategoria.subcategoria'
+    >;
+    categorias: Attribute.Relation<
+      'api::produto.produto',
+      'manyToMany',
+      'api::categoria.categoria'
+    >;
+    pedidos: Attribute.Relation<
+      'api::produto.produto',
+      'manyToMany',
+      'api::pedido.pedido'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::produto.produto',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::produto.produto',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSubcategoriaSubcategoria extends Schema.CollectionType {
+  collectionName: 'subcategorias';
+  info: {
+    singularName: 'subcategoria';
+    pluralName: 'subcategorias';
+    displayName: 'subcategoria';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    titulo: Attribute.String & Attribute.Required & Attribute.Unique;
+    produtos: Attribute.Relation<
+      'api::subcategoria.subcategoria',
+      'manyToMany',
+      'api::produto.produto'
+    >;
+    categorias: Attribute.Relation<
+      'api::subcategoria.subcategoria',
+      'manyToMany',
+      'api::categoria.categoria'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::subcategoria.subcategoria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::subcategoria.subcategoria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -693,6 +874,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::categoria.categoria': ApiCategoriaCategoria;
+      'api::pedido.pedido': ApiPedidoPedido;
+      'api::produto.produto': ApiProdutoProduto;
+      'api::subcategoria.subcategoria': ApiSubcategoriaSubcategoria;
     }
   }
 }
