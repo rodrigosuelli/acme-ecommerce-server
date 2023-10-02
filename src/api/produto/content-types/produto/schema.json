@@ -29,7 +29,7 @@
         "images"
       ]
     },
-    "preco": {
+    "preco_real": {
       "type": "decimal",
       "required": true
     },
@@ -50,6 +50,9 @@
       "relation": "manyToMany",
       "target": "api::pedido.pedido",
       "mappedBy": "produtos"
+    },
+    "preco_original": {
+      "type": "decimal"
     }
   }
 }

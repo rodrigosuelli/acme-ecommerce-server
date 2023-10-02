@@ -783,7 +783,7 @@ export interface ApiProdutoProduto extends Schema.CollectionType {
     titulo: Attribute.String & Attribute.Required & Attribute.Unique;
     descricao: Attribute.Text & Attribute.Required;
     imagens: Attribute.Media & Attribute.Required;
-    preco: Attribute.Decimal & Attribute.Required;
+    preco_real: Attribute.Decimal & Attribute.Required;
     subcategorias: Attribute.Relation<
       'api::produto.produto',
       'manyToMany',
@@ -799,6 +799,7 @@ export interface ApiProdutoProduto extends Schema.CollectionType {
       'manyToMany',
       'api::pedido.pedido'
     >;
+    preco_original: Attribute.Decimal;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
