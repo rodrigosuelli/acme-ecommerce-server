@@ -53,6 +53,10 @@
     },
     "preco_original": {
       "type": "decimal"
+    },
+    "qtd_estoque": {
+      "required": true,
+      "type": "integer"
     }
   }
 }

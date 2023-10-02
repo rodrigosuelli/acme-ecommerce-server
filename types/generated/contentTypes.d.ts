@@ -800,6 +800,7 @@ export interface ApiProdutoProduto extends Schema.CollectionType {
       'api::pedido.pedido'
     >;
     preco_original: Attribute.Decimal;
+    qtd_estoque: Attribute.Integer & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
