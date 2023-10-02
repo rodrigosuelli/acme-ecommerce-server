@@ -108,3 +108,4 @@ dist
 build
 .strapi-updater.json
 *.crt
+firebaseServiceAccountKey.json
