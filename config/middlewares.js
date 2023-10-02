@@ -1,5 +1,4 @@
 module.exports = [
-  'strapi::errors',
   {
     name: 'strapi::security',
     config: {
@@ -13,6 +12,7 @@ module.exports = [
             'blob:',
             'storage.googleapis.com',
             'dl.airtable.com',
+            'https://market-assets.strapi.io',
           ],
           'media-src': [
             "'self'",
@@ -20,12 +20,14 @@ module.exports = [
             'blob:',
             'storage.googleapis.com',
             'dl.airtable.com',
+            'https://market-assets.strapi.io',
           ],
           upgradeInsecureRequests: null,
         },
       },
     },
   },
+  'strapi::errors',
   'strapi::cors',
   'strapi::poweredBy',
   'strapi::logger',
