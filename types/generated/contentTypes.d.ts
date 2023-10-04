@@ -782,7 +782,7 @@ export interface ApiProdutoProduto extends Schema.CollectionType {
   attributes: {
     titulo: Attribute.String & Attribute.Required & Attribute.Unique;
     descricao: Attribute.Text & Attribute.Required;
-    imagens: Attribute.Media & Attribute.Required;
+    imagens: Attribute.Media;
     preco_real: Attribute.Decimal & Attribute.Required;
     subcategorias: Attribute.Relation<
       'api::produto.produto',
