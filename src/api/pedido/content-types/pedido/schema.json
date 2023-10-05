@@ -28,12 +28,6 @@
       "type": "decimal",
       "required": true
     },
-    "produtos": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::produto.produto",
-      "inversedBy": "pedidos"
-    },
     "user": {
       "type": "relation",
       "relation": "manyToOne",

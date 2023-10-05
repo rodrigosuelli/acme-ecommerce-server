@@ -45,12 +45,6 @@
       "target": "api::categoria.categoria",
       "mappedBy": "produtos"
     },
-    "pedidos": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::pedido.pedido",
-      "mappedBy": "produtos"
-    },
     "preco_original": {
       "type": "decimal"
     },

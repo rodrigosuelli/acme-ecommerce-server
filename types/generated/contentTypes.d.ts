@@ -747,11 +747,6 @@ export interface ApiPedidoPedido extends Schema.CollectionType {
       Attribute.Required &
       Attribute.DefaultTo<'nao_pago'>;
     total: Attribute.Decimal & Attribute.Required;
-    produtos: Attribute.Relation<
-      'api::pedido.pedido',
-      'manyToMany',
-      'api::produto.produto'
-    >;
     user: Attribute.Relation<
       'api::pedido.pedido',
       'manyToOne',
@@ -800,11 +795,6 @@ export interface ApiProdutoProduto extends Schema.CollectionType {
       'api::produto.produto',
       'manyToMany',
       'api::categoria.categoria'
-    >;
-    pedidos: Attribute.Relation<
-      'api::produto.produto',
-      'manyToMany',
-      'api::pedido.pedido'
     >;
     preco_original: Attribute.Decimal;
     qtd_estoque: Attribute.Integer & Attribute.Required;
