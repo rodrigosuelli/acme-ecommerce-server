@@ -51,6 +51,11 @@
     "qtd_estoque": {
       "required": true,
       "type": "integer"
+    },
+    "ativo": {
+      "type": "boolean",
+      "default": true,
+      "required": true
     }
   }
 }

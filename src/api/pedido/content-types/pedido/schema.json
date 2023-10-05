@@ -24,7 +24,7 @@
       "required": true,
       "default": "nao_pago"
     },
-    "total": {
+    "valor_total": {
       "type": "decimal",
       "required": true
     },
@@ -33,6 +33,16 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "pedidos"
+    },
+    "valor_frete": {
+      "type": "decimal",
+      "required": true
+    },
+    "produtos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pedido.item-pedido",
+      "required": true
     }
   }
 }

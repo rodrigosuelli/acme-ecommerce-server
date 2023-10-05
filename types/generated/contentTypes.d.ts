@@ -746,12 +746,15 @@ export interface ApiPedidoPedido extends Schema.CollectionType {
     > &
       Attribute.Required &
       Attribute.DefaultTo<'nao_pago'>;
-    total: Attribute.Decimal & Attribute.Required;
+    valor_total: Attribute.Decimal & Attribute.Required;
     user: Attribute.Relation<
       'api::pedido.pedido',
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    valor_frete: Attribute.Decimal & Attribute.Required;
+    produtos: Attribute.Component<'pedido.item-pedido', true> &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -798,6 +801,7 @@ export interface ApiProdutoProduto extends Schema.CollectionType {
     >;
     preco_original: Attribute.Decimal;
     qtd_estoque: Attribute.Integer & Attribute.Required;
+    ativo: Attribute.Boolean & Attribute.Required & Attribute.DefaultTo<true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

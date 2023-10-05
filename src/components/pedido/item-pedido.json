@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_componentes_pedido_item_pedidos",
+  "info": {
+    "displayName": "Item_Pedido",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "qtd": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "default": 1
+    },
+    "valor_unitario": {
+      "type": "decimal",
+      "required": false
+    },
+    "valor_subtotal": {
+      "type": "decimal",
+      "required": false
+    },
+    "produto": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::produto.produto"
+    }
+  }
+}
