@@ -693,7 +693,7 @@ export interface ApiCategoriaCategoria extends Schema.CollectionType {
   info: {
     singularName: 'categoria';
     pluralName: 'categorias';
-    displayName: 'categoria';
+    displayName: 'Categoria';
     description: '';
   };
   options: {
@@ -734,7 +734,7 @@ export interface ApiPedidoPedido extends Schema.CollectionType {
   info: {
     singularName: 'pedido';
     pluralName: 'pedidos';
-    displayName: 'pedido';
+    displayName: 'Pedido';
     description: '';
   };
   options: {
@@ -775,7 +775,7 @@ export interface ApiProdutoProduto extends Schema.CollectionType {
   info: {
     singularName: 'produto';
     pluralName: 'produtos';
-    displayName: 'produto';
+    displayName: 'Produto';
     description: '';
   };
   options: {
@@ -821,7 +821,7 @@ export interface ApiSubcategoriaSubcategoria extends Schema.CollectionType {
   info: {
     singularName: 'subcategoria';
     pluralName: 'subcategorias';
-    displayName: 'subcategoria';
+    displayName: 'Subcategoria';
     description: '';
   };
   options: {
