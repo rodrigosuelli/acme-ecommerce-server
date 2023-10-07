@@ -26,7 +26,7 @@
     },
     "valor_total": {
       "type": "decimal",
-      "required": true
+      "required": false
     },
     "user": {
       "type": "relation",

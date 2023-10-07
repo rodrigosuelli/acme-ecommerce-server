@@ -746,7 +746,7 @@ export interface ApiPedidoPedido extends Schema.CollectionType {
     > &
       Attribute.Required &
       Attribute.DefaultTo<'nao_pago'>;
-    valor_total: Attribute.Decimal & Attribute.Required;
+    valor_total: Attribute.Decimal;
     user: Attribute.Relation<
       'api::pedido.pedido',
       'manyToOne',
