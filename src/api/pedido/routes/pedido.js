@@ -14,8 +14,5 @@ module.exports = createCoreRouter('api::pedido.pedido', {
     findOne: {
       policies: ['api::pedido.is-owner-find-one'],
     },
-    find: {
-      // policies: ['api::pedido.is-owner'],
-    },
   },
 });
