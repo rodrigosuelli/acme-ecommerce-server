@@ -1,22 +1,47 @@
-// @ts-nocheck
+const slugify = require('slugify').default;
+
 module.exports = {
   async beforeCreate(event) {
-    event.params.data.slug = await strapi
-      .service('plugin::content-manager.uid')
-      .generateUIDField({
-        contentTypeUID: 'api::produto.produto',
-        field: 'slug',
-        data: event.params.data,
+    if (event.params.data.titulo) {
+      const newSlug = slugify(event.params.data.titulo, {
+        lower: true,
+        strict: true,
+        locale: 'pt',
       });
+
+      const isAvailable = await strapi
+        .service('plugin::content-manager.uid')
+        .checkUIDAvailability({
+          contentTypeUID: 'api::produto.produto',
+          field: 'slug',
+          value: newSlug,
+        });
+
+      if (isAvailable) {
+        event.params.data.slug = newSlug;
+      }
+    }
   },
 
   async beforeUpdate(event) {
-    event.params.data.slug = await strapi
-      .service('plugin::content-manager.uid')
-      .generateUIDField({
-        contentTypeUID: 'api::produto.produto',
-        field: 'slug',
-        data: event.params.data,
+    if (event.params.data.titulo) {
+      const newSlug = slugify(event.params.data.titulo, {
+        lower: true,
+        strict: true,
+        locale: 'pt',
       });
+
+      const isAvailable = await strapi
+        .service('plugin::content-manager.uid')
+        .checkUIDAvailability({
+          contentTypeUID: 'api::produto.produto',
+          field: 'slug',
+          value: newSlug,
+        });
+
+      if (isAvailable) {
+        event.params.data.slug = newSlug;
+      }
+    }
   },
 };
