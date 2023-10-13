@@ -802,6 +802,7 @@ export interface ApiProdutoProduto extends Schema.CollectionType {
     preco_original: Attribute.Decimal;
     qtd_estoque: Attribute.Integer & Attribute.Required;
     ativo: Attribute.Boolean & Attribute.Required & Attribute.DefaultTo<true>;
+    slug: Attribute.UID<'api::produto.produto', 'titulo'> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
