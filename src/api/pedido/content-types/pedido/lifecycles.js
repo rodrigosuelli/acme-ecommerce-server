@@ -7,10 +7,11 @@ module.exports = {
     const pedido = await strapi.entityService.findOne(
       'api::pedido.pedido',
       idPedido,
-      { fields: ['id'], populate: { produtos: true } }
+      { fields: ['id', 'valor_frete'], populate: { produtos: true } }
     );
 
-    let novoValorTotal = 0;
+    // Atribui valor_frete inicialmente e soma valor dos produtos
+    let novoValorTotal = pedido.valor_frete;
 
     const produtos = pedido.produtos;
     const produtosValidados = produtos.map((produto) => {
