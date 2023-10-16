@@ -1,5 +1,44 @@
 // @ts-nocheck
+const { ApplicationError } = require('@strapi/utils').errors;
+
 module.exports = {
+  async beforeCreate(event) {
+    const ctx = strapi.requestContext.get();
+
+    // Check if is request from admin panel and not api
+    if (!ctx.request.body.data) {
+      if (!ctx.request.body.user.connect.length) {
+        throw new ApplicationError('User is required');
+      }
+
+      if (!ctx.request.body.produtos.length) {
+        throw new ApplicationError('Produtos is required');
+      }
+
+      const produtos = ctx.request.body.produtos;
+
+      let seen = new Set();
+      const hasDuplicateProducts = produtos.some((currentObject) => {
+        if (!currentObject.produto.connect.length) {
+          throw new ApplicationError(
+            'Adding the produto relation field is required'
+          );
+        }
+
+        return (
+          seen.size ===
+          seen.add(parseInt(currentObject.produto.connect[0].id)).size
+        );
+      });
+
+      if (hasDuplicateProducts) {
+        throw new ApplicationError(
+          'Adding the same product multiple times is not allowed'
+        );
+      }
+    }
+  },
+
   async afterCreate(event) {
     const { result } = event;
     const idPedido = result.id;
