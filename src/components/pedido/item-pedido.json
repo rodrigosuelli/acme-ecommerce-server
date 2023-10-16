@@ -14,7 +14,8 @@
     },
     "valor_unitario": {
       "type": "decimal",
-      "required": true
+      "required": true,
+      "min": 0
     },
     "valor_subtotal": {
       "type": "decimal",

@@ -752,7 +752,11 @@ export interface ApiPedidoPedido extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    valor_frete: Attribute.Decimal & Attribute.Required;
+    valor_frete: Attribute.Decimal &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        min: 0;
+      }>;
     produtos: Attribute.Component<'pedido.item-pedido', true> &
       Attribute.Required;
     createdAt: Attribute.DateTime;

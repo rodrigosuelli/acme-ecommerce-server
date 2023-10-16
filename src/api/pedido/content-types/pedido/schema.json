@@ -36,7 +36,8 @@
     },
     "valor_frete": {
       "type": "decimal",
-      "required": true
+      "required": true,
+      "min": 0
     },
     "produtos": {
       "type": "component",
