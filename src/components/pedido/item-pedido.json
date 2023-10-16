@@ -14,12 +14,13 @@
     },
     "valor_unitario": {
       "type": "decimal",
-      "required": true,
+      "required": false,
       "min": 0
     },
     "valor_subtotal": {
       "type": "decimal",
-      "required": false
+      "required": false,
+      "min": 0
     },
     "produto": {
       "type": "relation",

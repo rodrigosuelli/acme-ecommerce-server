@@ -14,11 +14,13 @@ export interface PedidoItemPedido extends Schema.Component {
       }> &
       Attribute.DefaultTo<1>;
     valor_unitario: Attribute.Decimal &
-      Attribute.Required &
       Attribute.SetMinMax<{
         min: 0;
       }>;
-    valor_subtotal: Attribute.Decimal;
+    valor_subtotal: Attribute.Decimal &
+      Attribute.SetMinMax<{
+        min: 0;
+      }>;
     produto: Attribute.Relation<
       'pedido.item-pedido',
       'oneToOne',
