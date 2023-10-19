@@ -624,8 +624,13 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     celular: Attribute.String &
       Attribute.Required &
       Attribute.SetMinMaxLength<{
-        minLength: 10;
+        minLength: 11;
         maxLength: 11;
+      }>;
+    nome: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 3;
       }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
