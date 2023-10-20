@@ -61,6 +61,17 @@
       "relation": "manyToMany",
       "target": "api::tipo.tipo",
       "mappedBy": "produtos"
+    },
+    "avaliacao": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "max": 5,
+      "default": 5
+    },
+    "qtd_avaliacoes": {
+      "type": "integer",
+      "required": true
     }
   }
 }

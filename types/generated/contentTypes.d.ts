@@ -807,6 +807,14 @@ export interface ApiProdutoProduto extends Schema.CollectionType {
       'manyToMany',
       'api::tipo.tipo'
     >;
+    avaliacao: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        min: 1;
+        max: 5;
+      }> &
+      Attribute.DefaultTo<5>;
+    qtd_avaliacoes: Attribute.Integer & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
