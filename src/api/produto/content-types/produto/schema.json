@@ -33,12 +33,6 @@
       "type": "decimal",
       "required": true
     },
-    "subcategorias": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::subcategoria.subcategoria",
-      "inversedBy": "produtos"
-    },
     "categorias": {
       "type": "relation",
       "relation": "manyToMany",
@@ -61,6 +55,12 @@
       "type": "uid",
       "targetField": "titulo",
       "required": true
+    },
+    "tipos": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tipo.tipo",
+      "mappedBy": "produtos"
     }
   }
 }

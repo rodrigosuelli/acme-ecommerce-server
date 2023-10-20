@@ -711,11 +711,6 @@ export interface ApiCategoriaCategoria extends Schema.CollectionType {
       'manyToMany',
       'api::produto.produto'
     >;
-    subcategorias: Attribute.Relation<
-      'api::categoria.categoria',
-      'manyToMany',
-      'api::subcategoria.subcategoria'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -798,11 +793,6 @@ export interface ApiProdutoProduto extends Schema.CollectionType {
     descricao: Attribute.Text & Attribute.Required;
     imagens: Attribute.Media & Attribute.Required;
     preco_real: Attribute.Decimal & Attribute.Required;
-    subcategorias: Attribute.Relation<
-      'api::produto.produto',
-      'manyToMany',
-      'api::subcategoria.subcategoria'
-    >;
     categorias: Attribute.Relation<
       'api::produto.produto',
       'manyToMany',
@@ -812,6 +802,11 @@ export interface ApiProdutoProduto extends Schema.CollectionType {
     qtd_estoque: Attribute.Integer & Attribute.Required;
     ativo: Attribute.Boolean & Attribute.Required & Attribute.DefaultTo<true>;
     slug: Attribute.UID<'api::produto.produto', 'titulo'> & Attribute.Required;
+    tipos: Attribute.Relation<
+      'api::produto.produto',
+      'manyToMany',
+      'api::tipo.tipo'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -830,12 +825,12 @@ export interface ApiProdutoProduto extends Schema.CollectionType {
   };
 }
 
-export interface ApiSubcategoriaSubcategoria extends Schema.CollectionType {
-  collectionName: 'subcategorias';
+export interface ApiTipoTipo extends Schema.CollectionType {
+  collectionName: 'tipos';
   info: {
-    singularName: 'subcategoria';
-    pluralName: 'subcategorias';
-    displayName: 'Subcategoria';
+    singularName: 'tipo';
+    pluralName: 'tipos';
+    displayName: 'Tipo';
     description: '';
   };
   options: {
@@ -844,29 +839,16 @@ export interface ApiSubcategoriaSubcategoria extends Schema.CollectionType {
   attributes: {
     titulo: Attribute.String & Attribute.Required & Attribute.Unique;
     produtos: Attribute.Relation<
-      'api::subcategoria.subcategoria',
+      'api::tipo.tipo',
       'manyToMany',
       'api::produto.produto'
-    >;
-    categorias: Attribute.Relation<
-      'api::subcategoria.subcategoria',
-      'manyToMany',
-      'api::categoria.categoria'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::subcategoria.subcategoria',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: Attribute.Relation<'api::tipo.tipo', 'oneToOne', 'admin::user'> &
       Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::subcategoria.subcategoria',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: Attribute.Relation<'api::tipo.tipo', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -890,7 +872,7 @@ declare module '@strapi/types' {
       'api::categoria.categoria': ApiCategoriaCategoria;
       'api::pedido.pedido': ApiPedidoPedido;
       'api::produto.produto': ApiProdutoProduto;
-      'api::subcategoria.subcategoria': ApiSubcategoriaSubcategoria;
+      'api::tipo.tipo': ApiTipoTipo;
     }
   }
 }

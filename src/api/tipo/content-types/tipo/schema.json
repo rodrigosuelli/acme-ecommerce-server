@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "subcategorias",
+  "collectionName": "tipos",
   "info": {
-    "singularName": "subcategoria",
-    "pluralName": "subcategorias",
-    "displayName": "Subcategoria",
+    "singularName": "tipo",
+    "pluralName": "tipos",
+    "displayName": "Tipo",
     "description": ""
   },
   "options": {
@@ -21,13 +21,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::produto.produto",
-      "mappedBy": "subcategorias"
-    },
-    "categorias": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::categoria.categoria",
-      "inversedBy": "subcategorias"
+      "inversedBy": "tipos"
     }
   }
 }
