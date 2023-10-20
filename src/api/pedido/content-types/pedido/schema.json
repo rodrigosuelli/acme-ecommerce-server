@@ -44,6 +44,17 @@
       "repeatable": true,
       "component": "pedido.item-pedido",
       "required": true
+    },
+    "forma_pagamento": {
+      "type": "enumeration",
+      "enum": [
+        "pix",
+        "boleto",
+        "cartao_credito",
+        "cartao_debito"
+      ],
+      "default": "pix",
+      "required": true
     }
   }
 }

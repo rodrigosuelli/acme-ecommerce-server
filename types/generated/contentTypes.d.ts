@@ -759,6 +759,11 @@ export interface ApiPedidoPedido extends Schema.CollectionType {
       }>;
     produtos: Attribute.Component<'pedido.item-pedido', true> &
       Attribute.Required;
+    forma_pagamento: Attribute.Enumeration<
+      ['pix', 'boleto', 'cartao_credito', 'cartao_debito']
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'pix'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
