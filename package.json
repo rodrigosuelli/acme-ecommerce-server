@@ -1,12 +1,16 @@
 {
   "name": "tg-server",
-  "private": true,
   "version": "0.1.0",
+  "private": true,
   "description": "A Strapi application",
+  "license": "MIT",
+  "author": {
+    "name": "A Strapi developer"
+  },
   "scripts": {
+    "build": "strapi build",
     "dev": "strapi develop",
     "start": "strapi start",
-    "build": "strapi build",
     "strapi": "strapi"
   },
   "dependencies": {
@@ -18,15 +22,11 @@
     "slugify": "^1.6.6",
     "strapi-provider-firebase-storage": "^1.0.4"
   },
-  "author": {
-    "name": "A Strapi developer"
+  "engines": {
+    "node": "^20",
+    "npm": ">=6.0.0"
   },
   "strapi": {
     "uuid": "4036f0c6-f16c-42d4-bbbc-c585806b27c2"
-  },
-  "engines": {
-    "node": ">=16.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
-  },
-  "license": "MIT"
+  }
 }
