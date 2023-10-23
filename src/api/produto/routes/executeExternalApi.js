@@ -3,7 +3,7 @@ module.exports = {
     {
       // Path defined with an URL parameter
       method: 'POST',
-      path: '/product-update',
+      path: '/revalidate-frontend',
       handler: 'produto.executeExternalApi',
     },
   ],

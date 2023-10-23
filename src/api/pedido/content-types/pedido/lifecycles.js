@@ -1,4 +1,3 @@
-// @ts-nocheck
 const { ApplicationError } = require('@strapi/utils').errors;
 
 module.exports = {

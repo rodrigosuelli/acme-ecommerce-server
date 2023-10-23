@@ -1,38 +1,45 @@
 'use strict';
 
+const api = require('../../../services/api');
+
 /**
  * produto controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::produto.produto', ({ strapi }) => ({
-  executeExternalApi: async (ctx, next) => {
-    try {
-      console.log('INICIO');
+module.exports = createCoreController(
+  'api::produto.produto',
+  ({ env, strapi }) => ({
+    executeExternalApi: async (ctx, next) => {
+      try {
+        const requestBody = ctx.request.body;
+        const authHeader = ctx.request.header['Authorization'];
+        const secret = authHeader && authHeader.split(' ')[1];
 
-      const res = await fetch('https://tg-web-ebon.vercel.app/api/revalidate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
-        },
-        body: JSON.stringify({
-          model: 'produto',
-        }),
-      });
+        if (requestBody.model !== 'produto') {
+          throw new Error('Status 400: Model is not produto');
+        }
 
-      const data = await res.json();
+        if (secret !== env('NEXT_REVALIDATION_SECRET')) {
+          throw new Error('Status 401: Invalid secret');
+        }
 
-      console.log(data);
+        const response = await api.post(env('FRONTEND_BASE_URL'), requestBody, {
+          headers: { Authorization: `Bearer ${secret}` },
+        });
 
-      ctx.body = 'ok';
-      // @ts-ignore
-      let request = ctx.request.body;
-      let header = ctx.request.header;
-    } catch (err) {
-      ctx.body = err;
-      console.log(err);
-    }
-  },
-}));
+        console.log(response.data);
+
+        ctx.body = 'ok';
+      } catch (error) {
+        ctx.body = error;
+        if (error?.response) {
+          console.log(error.response);
+        } else {
+          console.log(error);
+        }
+      }
+    },
+  })
+);

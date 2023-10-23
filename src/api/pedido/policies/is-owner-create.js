@@ -1,4 +1,3 @@
-// @ts-nocheck
 module.exports = (policyContext, config, { strapi }) => {
   if (policyContext.state.user.role.name === 'Adm') {
     return true;
