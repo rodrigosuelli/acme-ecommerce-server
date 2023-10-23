@@ -13,17 +13,18 @@ module.exports = createCoreController(
   ({ env, strapi }) => ({
     executeExternalApi: async (ctx, next) => {
       try {
+        console.log(ctx.request);
         const requestBody = ctx.request.body;
-        const authHeader = ctx.request.header['Authorization'];
-        const secret = authHeader && authHeader.split(' ')[1];
+        // const authHeader = ctx.request.header['Authorization'];
+        // const secret = authHeader && authHeader.split(' ')[1];
 
-        if (requestBody.model !== 'produto') {
-          throw new Error('Status 400: Model is not produto');
-        }
+        // if (requestBody.model !== 'produto') {
+        // throw new Error('Status 400: Model is not produto');
+        // }
 
-        if (secret !== env('NEXT_REVALIDATION_SECRET')) {
-          throw new Error('Status 401: Invalid secret');
-        }
+        // if (secret !== env('NEXT_REVALIDATION_SECRET')) {
+        // throw new Error('Status 401: Invalid secret');
+        // }
 
         const response = await api.post(env('FRONTEND_BASE_URL'), requestBody, {
           headers: { Authorization: `Bearer ${secret}` },
