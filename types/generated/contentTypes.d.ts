@@ -713,6 +713,9 @@ export interface ApiCategoriaCategoria extends Schema.CollectionType {
     >;
     slug: Attribute.UID<'api::categoria.categoria', 'titulo'> &
       Attribute.Required;
+    tipo: Attribute.Enumeration<['categoria_produto', 'tipo_produto']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'categoria_produto'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

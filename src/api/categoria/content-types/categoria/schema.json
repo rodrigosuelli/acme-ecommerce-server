@@ -27,6 +27,15 @@
       "type": "uid",
       "targetField": "titulo",
       "required": true
+    },
+    "tipo": {
+      "type": "enumeration",
+      "enum": [
+        "categoria_produto",
+        "tipo_produto"
+      ],
+      "required": true,
+      "default": "categoria_produto"
     }
   }
 }
