@@ -56,12 +56,6 @@
       "targetField": "titulo",
       "required": true
     },
-    "tipos": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::tipo.tipo",
-      "mappedBy": "produtos"
-    },
     "avaliacao": {
       "type": "integer",
       "required": true,

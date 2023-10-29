@@ -362,6 +362,151 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiCategoriaCategoria extends Schema.CollectionType {
+  collectionName: 'categorias';
+  info: {
+    singularName: 'categoria';
+    pluralName: 'categorias';
+    displayName: 'Categoria';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    titulo: Attribute.String & Attribute.Required & Attribute.Unique;
+    produtos: Attribute.Relation<
+      'api::categoria.categoria',
+      'manyToMany',
+      'api::produto.produto'
+    >;
+    slug: Attribute.UID<'api::categoria.categoria', 'titulo'> &
+      Attribute.Required;
+    tipo: Attribute.Enumeration<['categoria_produto', 'tipo_produto']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'categoria_produto'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::categoria.categoria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::categoria.categoria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPedidoPedido extends Schema.CollectionType {
+  collectionName: 'pedidos';
+  info: {
+    singularName: 'pedido';
+    pluralName: 'pedidos';
+    displayName: 'Pedido';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    status: Attribute.Enumeration<
+      ['nao_pago', 'pago', 'processando', 'enviado', 'concluido']
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'nao_pago'>;
+    valor_total: Attribute.Decimal;
+    user: Attribute.Relation<
+      'api::pedido.pedido',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    valor_frete: Attribute.Decimal &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        min: 0;
+      }>;
+    produtos: Attribute.Component<'pedido.item-pedido', true> &
+      Attribute.Required;
+    forma_pagamento: Attribute.Enumeration<
+      ['pix', 'boleto', 'cartao_credito', 'cartao_debito']
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'pix'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pedido.pedido',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pedido.pedido',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProdutoProduto extends Schema.CollectionType {
+  collectionName: 'produtos';
+  info: {
+    singularName: 'produto';
+    pluralName: 'produtos';
+    displayName: 'Produto';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    titulo: Attribute.String & Attribute.Required & Attribute.Unique;
+    descricao: Attribute.Text & Attribute.Required;
+    imagens: Attribute.Media & Attribute.Required;
+    preco_real: Attribute.Decimal & Attribute.Required;
+    categorias: Attribute.Relation<
+      'api::produto.produto',
+      'manyToMany',
+      'api::categoria.categoria'
+    >;
+    preco_original: Attribute.Decimal;
+    qtd_estoque: Attribute.Integer & Attribute.Required;
+    ativo: Attribute.Boolean & Attribute.Required & Attribute.DefaultTo<true>;
+    slug: Attribute.UID<'api::produto.produto', 'titulo'> & Attribute.Required;
+    avaliacao: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        min: 1;
+        max: 5;
+      }> &
+      Attribute.DefaultTo<5>;
+    qtd_avaliacoes: Attribute.Integer & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::produto.produto',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::produto.produto',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -693,185 +838,6 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
-export interface ApiCategoriaCategoria extends Schema.CollectionType {
-  collectionName: 'categorias';
-  info: {
-    singularName: 'categoria';
-    pluralName: 'categorias';
-    displayName: 'Categoria';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    titulo: Attribute.String & Attribute.Required & Attribute.Unique;
-    produtos: Attribute.Relation<
-      'api::categoria.categoria',
-      'manyToMany',
-      'api::produto.produto'
-    >;
-    slug: Attribute.UID<'api::categoria.categoria', 'titulo'> &
-      Attribute.Required;
-    tipo: Attribute.Enumeration<['categoria_produto', 'tipo_produto']> &
-      Attribute.Required &
-      Attribute.DefaultTo<'categoria_produto'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::categoria.categoria',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::categoria.categoria',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPedidoPedido extends Schema.CollectionType {
-  collectionName: 'pedidos';
-  info: {
-    singularName: 'pedido';
-    pluralName: 'pedidos';
-    displayName: 'Pedido';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    status: Attribute.Enumeration<
-      ['nao_pago', 'pago', 'processando', 'enviado', 'concluido']
-    > &
-      Attribute.Required &
-      Attribute.DefaultTo<'nao_pago'>;
-    valor_total: Attribute.Decimal;
-    user: Attribute.Relation<
-      'api::pedido.pedido',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    valor_frete: Attribute.Decimal &
-      Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 0;
-      }>;
-    produtos: Attribute.Component<'pedido.item-pedido', true> &
-      Attribute.Required;
-    forma_pagamento: Attribute.Enumeration<
-      ['pix', 'boleto', 'cartao_credito', 'cartao_debito']
-    > &
-      Attribute.Required &
-      Attribute.DefaultTo<'pix'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pedido.pedido',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pedido.pedido',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiProdutoProduto extends Schema.CollectionType {
-  collectionName: 'produtos';
-  info: {
-    singularName: 'produto';
-    pluralName: 'produtos';
-    displayName: 'Produto';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    titulo: Attribute.String & Attribute.Required & Attribute.Unique;
-    descricao: Attribute.Text & Attribute.Required;
-    imagens: Attribute.Media & Attribute.Required;
-    preco_real: Attribute.Decimal & Attribute.Required;
-    categorias: Attribute.Relation<
-      'api::produto.produto',
-      'manyToMany',
-      'api::categoria.categoria'
-    >;
-    preco_original: Attribute.Decimal;
-    qtd_estoque: Attribute.Integer & Attribute.Required;
-    ativo: Attribute.Boolean & Attribute.Required & Attribute.DefaultTo<true>;
-    slug: Attribute.UID<'api::produto.produto', 'titulo'> & Attribute.Required;
-    tipos: Attribute.Relation<
-      'api::produto.produto',
-      'manyToMany',
-      'api::tipo.tipo'
-    >;
-    avaliacao: Attribute.Integer &
-      Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1;
-        max: 5;
-      }> &
-      Attribute.DefaultTo<5>;
-    qtd_avaliacoes: Attribute.Integer & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::produto.produto',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::produto.produto',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiTipoTipo extends Schema.CollectionType {
-  collectionName: 'tipos';
-  info: {
-    singularName: 'tipo';
-    pluralName: 'tipos';
-    displayName: 'Tipo';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    titulo: Attribute.String & Attribute.Required & Attribute.Unique;
-    produtos: Attribute.Relation<
-      'api::tipo.tipo',
-      'manyToMany',
-      'api::produto.produto'
-    >;
-    slug: Attribute.UID<'api::tipo.tipo', 'titulo'> & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::tipo.tipo', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::tipo.tipo', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -882,16 +848,15 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::categoria.categoria': ApiCategoriaCategoria;
+      'api::pedido.pedido': ApiPedidoPedido;
+      'api::produto.produto': ApiProdutoProduto;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
-      'api::categoria.categoria': ApiCategoriaCategoria;
-      'api::pedido.pedido': ApiPedidoPedido;
-      'api::produto.produto': ApiProdutoProduto;
-      'api::tipo.tipo': ApiTipoTipo;
     }
   }
 }
