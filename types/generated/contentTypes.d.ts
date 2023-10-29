@@ -711,6 +711,8 @@ export interface ApiCategoriaCategoria extends Schema.CollectionType {
       'manyToMany',
       'api::produto.produto'
     >;
+    slug: Attribute.UID<'api::categoria.categoria', 'titulo'> &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -856,6 +858,7 @@ export interface ApiTipoTipo extends Schema.CollectionType {
       'manyToMany',
       'api::produto.produto'
     >;
+    slug: Attribute.UID<'api::tipo.tipo', 'titulo'> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

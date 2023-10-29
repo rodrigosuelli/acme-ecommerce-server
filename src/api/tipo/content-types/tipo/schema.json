@@ -22,6 +22,11 @@
       "relation": "manyToMany",
       "target": "api::produto.produto",
       "inversedBy": "tipos"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
     }
   }
 }
