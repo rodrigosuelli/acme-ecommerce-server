@@ -115,7 +115,7 @@ npm run build
 yarn build
 ```
 
-Mais informações sobre como rodar o projeto no arquivo [Run-Strapi.md](.github/GettingStarted.md)
+Mais informações sobre como rodar o projeto no arquivo [GettingStarted.md](.github/GettingStarted.md)
 
 ## 🤔 Como contribuir
 
